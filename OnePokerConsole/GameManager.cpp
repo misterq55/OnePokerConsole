@@ -52,6 +52,17 @@ bool GameManager::MainLoop()
 		}
 
 		// 카드 배분
+		while (First->getCardCount() < 2 && Second->getCardCount() < 2) {
+			First->addCard(GameDeck->getCard());
+			Second->addCard(GameDeck->getCard());
+		}
+
+		// 정보 전달하기
+
+		// 플레이
+		for (int i = 0; i < 2; i++) {
+			characters[i]->Play();
+		}
 
 	}
 

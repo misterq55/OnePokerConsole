@@ -9,6 +9,8 @@ int main() {
 	motherSophie;
 	motherSophie->Init();
 
+	motherSophie->MainLoop();
+
 	delete motherSophie;
 
 	return 0;

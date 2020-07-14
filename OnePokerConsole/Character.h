@@ -7,7 +7,7 @@ using std::list;
 class Character
 {
 private:
-	list<Card*> Cards;
+	Card* Cards[2];
 	int CardCount;
 	int Life;
 
@@ -17,7 +17,9 @@ public:
 	~Character();
 
 	void addCard(Card* card);
-	Card *selectCard();
+	Card *selectCard(int selection);
+
+	int getCardCount();
 
 	void setLife(int life);
 	int getLife();
