@@ -20,12 +20,11 @@ public:
 
 	~Deck() {
 		for (list<Card*>::iterator iter = CardList.begin();
-			iter != CardList.end();
-			iter++)
+			iter != CardList.end();)
 		{
 			Card* card = *iter;
 
-			CardList.erase(iter);
+			CardList.erase(iter++);
 			delete card;
 		}
 	}
@@ -51,7 +50,7 @@ public:
 			iter != CardList.end();
 			iter++)
 		{
-			std::cout << (*iter)->getNumber() << (*iter)->getMark() << std::endl;
+			printf("%c%c\n", (*iter)->getNumber(), (*iter)->getMark());
 		}
 	}
 };

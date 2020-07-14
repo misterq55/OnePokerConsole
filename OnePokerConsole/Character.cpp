@@ -31,7 +31,9 @@ void Character::addCard(Card* card)
 
 Card* Character::selectCard(int selection)
 {
-	Card* selected = Cards[selection - 1];
+	Card* selected = Cards[selection];
+	Cards[selection] = NULL;
+
 	CardCount--;
 
 	return selected;
@@ -44,7 +46,7 @@ int Character::getCardCount()
 
 void Character::setLife(int life)
 {
-	life = life;
+	Life = life;
 }
 
 int Character::getLife()
@@ -64,7 +66,36 @@ char* Character::getMyCardInfo()
 	return MyCardInfo;
 }
 
-bool Character::Play()
+void Character::printInfo()
 {
-	return false;
+	printf("%c%c\n", MyCardInfo[0], MyCardInfo[1]);
+}
+
+void Character::printCards()
+{
+	printf("----------------------------------------\n");
+	printf("소유 카드\n");
+	for (int i = 0; i < 2; i++) {
+		Cards[i]->printCard();
+	}
+	printf("\n");
+	printf("----------------------------------------\n");
+}
+
+void Character::checkCards()
+{
+	for (int i = 0; i < 2; i++) {
+
+		if (Cards[i]->getNumber() <= 7) {
+			MyCardInfo[i] = 'L';
+		}
+		else {
+			MyCardInfo[i] = 'H';
+		}
+	}
+}
+
+Card* Character::Play()
+{
+	return NULL;
 }

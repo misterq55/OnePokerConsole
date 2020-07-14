@@ -8,6 +8,6 @@ public:
 	Computer(int life);
 	~Computer();
 
-	bool Play();
+	virtual Card *Play();
 };
 

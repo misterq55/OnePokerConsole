@@ -2,8 +2,10 @@
 #include "Deck.h"
 #include "Player.h"
 #include "Computer.h"
+#include <conio.h>
 
 GameManager::GameManager()
+	: Token(false)
 {
 	GameDeck = new Deck();
 	UsedDeck = new Deck();
@@ -11,10 +13,11 @@ GameManager::GameManager()
 	First = NULL;
 	Second = NULL;
 
-	PlayerInstance = new Player();
+	PlayerInstance = new Player(1);
+	ComputerInstance = new Computer(1);
 
 	Characters[0] = PlayerInstance;
-	Characters[1] = new Computer();
+	Characters[1] = ComputerInstance;
 }
 
 GameManager::~GameManager()
@@ -58,19 +61,70 @@ bool GameManager::MainLoop()
 		}
 
 		// 카드 판정
+		for (int i = 0; i < 2; i++) {
+			Characters[i]->checkCards();
+		}
+
+		// race
+		int racePlayer = 1;
+		int raceComputer = 1;
 
 		// 정보 전달하기
 		Characters[0]->setEnemyCardInfo(Characters[1]->getMyCardInfo());
 		Characters[1]->setEnemyCardInfo(Characters[0]->getMyCardInfo());
 
 		// 정보 출력하기
+		printf("Player Life = %d\n", PlayerInstance->getLife());
+		printf("Computer Life = %d\n", ComputerInstance->getLife());
 
+		printf("\n");
+
+		ComputerInstance->printInfo();
+		// ComputerInstance->printCards();
 
 		// 플레이
-		for (int i = 0; i < 2; i++) {
-			Characters[i]->Play();
+		Card* card1 = Characters[0]->Play();
+		Card* card2 = Characters[1]->Play();
+
+		int result = Battle(card1, card2);
+
+		printf("플레이어 카드\n");
+		card1->printCard();
+		printf("\n");
+		printf("com 카드\n");
+		card2->printCard();
+		printf("\n");
+
+		switch (result) {
+		case -1:
+			printf("com의 승리\n");
+			Token = false;
+			PlayerInstance->setLife(PlayerInstance->getLife() - racePlayer);
+			break;
+
+		case 1:
+			printf("플레이어의 승리\n");
+			ComputerInstance->setLife(ComputerInstance->getLife() - raceComputer);
+			Token = true;
+			break;
+
+		case 0:
+			printf("무승부\n");
+			break;
 		}
 
+		if (PlayerInstance->getLife() <= 0) {
+			printf("Game Over\n");
+			break;
+		}
+		else if (ComputerInstance->getLife() <= 0) {
+			printf("Player Wins\n");
+			break;
+		}
+
+		printf("Press Any Keys...\n");
+		_getch();
+		system("cls");
 	}
 
 	return true;
@@ -98,4 +152,42 @@ bool GameManager::InitDeck()
 	GameDeck->shuffle();
 
 	return true;
+}
+
+int GameManager::Battle(Card* card1, Card* card2)
+{
+	if (card1->getNumber() <= 7) {
+		if (card2->getNumber() > 7) {
+			return -1;
+		}
+		else {
+			if (card1->getNumber() < card2->getNumber()) {
+				return -1;
+			}
+			else if (card1->getNumber() < card2->getNumber()) {
+				return 0;
+			}
+		}
+	}
+	else {
+		if (card2->getNumber() > 7) {
+			char hCh = card1->getNumber();
+			char lCh = card2->getNumber();
+
+			if (hCh == 'K') { hCh += 10; }
+			if (lCh == 'K') { lCh += 10; }
+
+			if (hCh == 'A') { hCh = 100; }
+			if (lCh == 'A') { lCh = 100; }
+
+			if (hCh < lCh) {
+				return -1;
+			}
+			else if (hCh == lCh) {
+				return 0;
+			}
+		}
+	}
+
+	return 1;
 }

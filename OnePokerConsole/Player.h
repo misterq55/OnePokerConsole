@@ -8,7 +8,7 @@ public:
 	Player(int life);
 	~Player();
 
-	bool Play();
+	virtual Card *Play();
 
 	bool setToken();
 };
