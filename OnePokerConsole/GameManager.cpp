@@ -65,10 +65,6 @@ bool GameManager::MainLoop()
 			Characters[i]->checkCards();
 		}
 
-		// race
-		int racePlayer = 1;
-		int raceComputer = 1;
-
 		// 정보 전달하기
 		Characters[0]->setEnemyCardInfo(Characters[1]->getMyCardInfo());
 		Characters[1]->setEnemyCardInfo(Characters[0]->getMyCardInfo());
@@ -81,6 +77,10 @@ bool GameManager::MainLoop()
 
 		ComputerInstance->printInfo();
 		// ComputerInstance->printCards();
+
+		// race
+		int racePlayer = 1;
+		int raceComputer = 1;
 
 		// 플레이
 		Card* card1 = Characters[0]->Play();
