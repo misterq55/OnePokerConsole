@@ -8,6 +8,8 @@ class Character
 {
 private:
 	Card* Cards[2];
+	char MyCardInfo[2];
+	char EnemyCardInfo[2];
 	int CardCount;
 	int Life;
 
@@ -23,6 +25,9 @@ public:
 
 	void setLife(int life);
 	int getLife();
+
+	void setEnemyCardInfo(char enemyCardInfo[2]);
+	char* getMyCardInfo();
 
 	bool Play();
 };

@@ -13,8 +13,8 @@ GameManager::GameManager()
 
 	PlayerInstance = new Player();
 
-	characters[0] = PlayerInstance;
-	characters[1] = new Computer();
+	Characters[0] = PlayerInstance;
+	Characters[1] = new Computer();
 }
 
 GameManager::~GameManager()
@@ -28,7 +28,7 @@ bool GameManager::Init()
 	InitDeck();
 
 	for (int i = 0; i < 2; i++) {
-		characters[i]->setLife(4);
+		Characters[i]->setLife(4);
 	}
 
 	return true;
@@ -43,12 +43,12 @@ bool GameManager::MainLoop()
 		}
 		
 		if (Token == true) {
-			First = characters[0];
-			Second = characters[1];
+			First = Characters[0];
+			Second = Characters[1];
 		}
 		else {
-			First = characters[1];
-			Second = characters[0];
+			First = Characters[1];
+			Second = Characters[0];
 		}
 
 		// 카드 배분
@@ -57,11 +57,18 @@ bool GameManager::MainLoop()
 			Second->addCard(GameDeck->getCard());
 		}
 
+		// 카드 판정
+
 		// 정보 전달하기
+		Characters[0]->setEnemyCardInfo(Characters[1]->getMyCardInfo());
+		Characters[1]->setEnemyCardInfo(Characters[0]->getMyCardInfo());
+
+		// 정보 출력하기
+
 
 		// 플레이
 		for (int i = 0; i < 2; i++) {
-			characters[i]->Play();
+			Characters[i]->Play();
 		}
 
 	}

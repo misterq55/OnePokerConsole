@@ -17,7 +17,7 @@ private:
 
 	Player* PlayerInstance;
 
-	Character* characters[2];
+	Character* Characters[2];
 
 public:
 	GameManager();

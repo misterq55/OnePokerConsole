@@ -52,6 +52,18 @@ int Character::getLife()
 	return Life;
 }
 
+void Character::setEnemyCardInfo(char enemyCardInfo[2])
+{
+	for (int i = 0; i < 2; i++) {
+		EnemyCardInfo[i] = enemyCardInfo[i];
+	}
+}
+
+char* Character::getMyCardInfo()
+{
+	return MyCardInfo;
+}
+
 bool Character::Play()
 {
 	return false;
