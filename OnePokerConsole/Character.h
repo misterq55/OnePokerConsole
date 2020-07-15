@@ -6,7 +6,7 @@ using std::list;
 
 class Character
 {
-private:
+protected:
 	Card* Cards[2];
 	char MyCardInfo[2];
 	char EnemyCardInfo[2];
@@ -18,17 +18,22 @@ public:
 	Character(int life);
 	~Character();
 
-	void addCard(Card* card);
-	Card *selectCard(int selection);
+	virtual void addCard(Card* card);
+	virtual Card *selectCard(int selection);
 
-	int getCardCount();
+	virtual int getCardCount();
 
-	void setLife(int life);
-	int getLife();
+	virtual void setLife(int life);
+	virtual int getLife();
 
-	void setEnemyCardInfo(char enemyCardInfo[2]);
-	char* getMyCardInfo();
+	virtual void setEnemyCardInfo(char enemyCardInfo[2]);
+	virtual char* getMyCardInfo();
 
-	bool Play();
+	virtual void printInfo();
+	virtual void printCards();
+
+	virtual void checkCards();
+
+	virtual Card *Play();
 };
 

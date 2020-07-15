@@ -2,7 +2,9 @@
 
 class Deck;
 class Player;
+class Computer;
 class Character;
+class Card;
 
 class GameManager
 {
@@ -16,6 +18,7 @@ private:
 	Character *Second;
 
 	Player* PlayerInstance;
+	Computer* ComputerInstance;
 
 	Character* Characters[2];
 
@@ -29,5 +32,6 @@ public:
 
 private:
 	bool InitDeck();
+	int Battle(Card* card1, Card* card2);
 };
 
